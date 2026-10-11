@@ -1,0 +1,24 @@
+# Training log of the reported run (Kaggle GPU, seed 0, 15 epochs, batch 16, 80 train / 20 val patients, 128x128)
+# Dice values here are pooled slice-level Dice over the whole validation set (used for model selection only).
+ep 1/15 | loss 1.834 | Dice WT 0.873 TC 0.868 ET 0.745 mean 0.829 | 79s
+   saved best.pth
+ep 2/15 | loss 1.100 | Dice WT 0.881 TC 0.871 ET 0.752 mean 0.835 | 48s
+   saved best.pth
+ep 3/15 | loss 1.012 | Dice WT 0.885 TC 0.867 ET 0.757 mean 0.836 | 48s
+   saved best.pth
+ep 4/15 | loss 0.963 | Dice WT 0.889 TC 0.873 ET 0.760 mean 0.841 | 49s
+   saved best.pth
+ep 5/15 | loss 0.925 | Dice WT 0.892 TC 0.881 ET 0.771 mean 0.848 | 48s
+   saved best.pth
+ep 6/15 | loss 0.901 | Dice WT 0.892 TC 0.879 ET 0.772 mean 0.848 | 48s
+ep 7/15 | loss 0.873 | Dice WT 0.892 TC 0.879 ET 0.775 mean 0.849 | 49s
+   saved best.pth
+ep 8/15 | loss 0.854 | Dice WT 0.890 TC 0.875 ET 0.779 mean 0.848 | 49s
+ep 9/15 | loss 0.841 | Dice WT 0.893 TC 0.884 ET 0.783 mean 0.853 | 48s
+   saved best.pth
+ep 10/15 | loss 0.829 | Dice WT 0.896 TC 0.880 ET 0.779 mean 0.852 | 48s
+ep 11/15 | loss 0.817 | Dice WT 0.894 TC 0.880 ET 0.784 mean 0.852 | 49s
+ep 12/15 | loss 0.808 | Dice WT 0.893 TC 0.878 ET 0.783 mean 0.852 | 49s
+ep 13/15 | loss 0.803 | Dice WT 0.895 TC 0.880 ET 0.784 mean 0.853 | 49s
+ep 14/15 | loss 0.802 | Dice WT 0.895 TC 0.881 ET 0.784 mean 0.853 | 49s
+ep 15/15 | loss 0.799 | Dice WT 0.895 TC 0.880 ET 0.784 mean 0.853 | 48s
