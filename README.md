@@ -49,7 +49,7 @@ worst-performing tumor slice. Green = edema, blue = non-enhancing tumor, red = e
 ## Reproduce
 
 The reported numbers were produced by running the scripts below on a Kaggle GPU (seed 0). [`notebooks/`](notebooks/)
-contains the earlier notebook version of the same pipeline.
+contains the reproducing code.
 
 ```bash
 pip install -r requirements.txt
