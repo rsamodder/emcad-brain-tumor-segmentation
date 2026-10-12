@@ -12,14 +12,15 @@ Per-patient 3D metrics on 20 held-out validation patients (mean over patients; H
 
 | Region | Dice | HD95 (mm) |
 |---|---|---|
-| Whole tumor (WT) | 0.891 | 8.29 |
-| Tumor core (TC) | 0.860 | 7.60 |
-| Enhancing tumor (ET) | 0.778 | 5.72 |
-| **Mean** | **0.843** | **7.20** |
+| Whole tumor (WT) | 0.891 | 8.28 |
+| Tumor core (TC) | 0.855 | 7.90 |
+| Enhancing tumor (ET) | 0.780 | 5.94 |
+| **Mean** | **0.842** | **7.37** |
 
 Files: [`results/per_patient_metrics.csv`](results/per_patient_metrics.csv),
 [`results/summary_metrics.csv`](results/summary_metrics.csv), training log in [`logs/train_log.txt`](logs/train_log.txt).
-An earlier run of the same pipeline (before code cleanup, no fixed seed) gave mean Dice 0.841 and mean HD95 7.46 mm.
+Two earlier notebook runs of the same pipeline gave mean Dice 0.841 / mean HD95 7.46 mm (no fixed seed) and
+0.843 / 7.20 mm (seed 0), so the result is stable across runs.
 
 ![Overlays](results/overlays.png)
 
@@ -40,15 +41,15 @@ worst-performing tumor slice. Green = edema, blue = non-enhancing tumor, red = e
 3. **Loss** (`src/losses.py`): 0.7 x Dice + 0.3 x cross-entropy on each of the four heads plus one term on the summed head
    logits.
 4. **Training** (`train.py`): AdamW (lr 1e-4, wd 1e-4), cosine schedule, batch 16, mixed precision, 15 epochs, seed 0.
-   Best epoch (epoch 9) chosen by mean pooled slice-level Dice on the validation set.
+   Best epoch (epoch 14) chosen by mean pooled slice-level Dice on the validation set.
 5. **Evaluation** (`evaluate.py`): each validation patient is predicted slice by slice, stacked into a 3D volume, and
    Dice / HD95 are computed per patient and averaged. Prediction = argmax of the sum of the four head logits.
 6. **Overlays** (`visualize.py`): best / median / worst patient and the worst tumor slice.
 
 ## Reproduce
 
-The reported numbers were produced with the notebook in [`notebooks/`](notebooks/) on a Kaggle GPU. The command-line
-scripts below contain the same code organised into modules.
+The reported numbers were produced by running the scripts below on a Kaggle GPU (seed 0). [`notebooks/`](notebooks/)
+contains the earlier notebook version of the same pipeline.
 
 ```bash
 pip install -r requirements.txt
@@ -78,13 +79,14 @@ repository.
 
 ## Limitations
 
-- Small subset, short training, low resolution, and results from two runs, so differences of about a point are not
+- Small subset, short training, low resolution, and results from three runs, so differences of about a point are not
   meaningful.
 - The best epoch was selected on the same validation set that is reported (no separate test set), so numbers may be
   slightly optimistic.
 - HD95 spacing is approximate (1 mm between slices, 240/128 mm in-plane after resizing).
-- Mean HD95 is pulled up by a few patients (e.g. patient 15: 48.8 mm WT, 63.7 mm TC); per-patient median HD95 is
-  WT 4.19, TC 2.94, ET 3.82 mm. The cause of these outliers was not investigated.
+- Mean HD95 is pulled up by a few patients (patient 15: 49.0 mm WT, 63.4 mm TC; patient 17: 31.9 mm WT; patient 0:
+  23.1 mm TC, 24.6 mm ET); per-patient median HD95 is WT 4.00, TC 3.54, ET 3.82 mm. The cause of these outliers was
+  not investigated.
 - No 3D post-processing was applied.
 
 ## Acknowledgements
